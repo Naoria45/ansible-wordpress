@@ -4,9 +4,10 @@
   vars_files:
     - ./group_vars/main.yml
   roles:
-    - common
-    - mariadb
-    - nginx 
-    - php-fpm
-    - wordpress
+    - role: common
+    - role: mariadb
+    - role: nginx 
+    - role: php-fpm
+      tags: php
+    - role: wordpress
     
