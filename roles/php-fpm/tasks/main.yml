@@ -1,6 +1,6 @@
 ---
 - name: Install php-fpm and deps
-  yum: name={{ item }} state=present
+  yum: name={{ item }} enablerepo=epel,remi,remi-php73 state=present 
   with_items:
     - php
     - php-fpm
