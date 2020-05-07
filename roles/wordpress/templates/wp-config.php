@@ -60,7 +60,12 @@ define('WPLANG', '');
  * It is strongly recommended that plugin and theme developers use WP_DEBUG
  * in their development environments.
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true); 
+if (WP_DEBUG) { 
+	define('WP_DEBUG_LOG', true); // Write to wp-content/debug.log 
+	define('WP_DEBUG_DISPLAY', false); // Do not display in browser
+	@ini_set('display_errors',0); 
+}
 /** Disable Automatic Updates Completely */
 define( 'AUTOMATIC_UPDATER_DISABLED', {{auto_up_disable}} );
 /** Define AUTOMATIC Updates for Components. */
@@ -71,3 +76,6 @@ if ( !defined('ABSPATH') )
   define('ABSPATH', dirname(__FILE__) . '/');
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+/** FTP upload for plugins and updates */
+define('FS_METHOD','direct');
+

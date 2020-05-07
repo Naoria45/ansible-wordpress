@@ -6,14 +6,14 @@
 
 #install chrony ntp server
 - name: install chrony
-  yum:
+  dnf:
     name: chrony
     state: latest
 
-- name: comment out default servers
+- name: comment out default server pools
   replace:
     path: /etc/chrony.conf
-    regexp: '^(server \d+.centos.pool.ntp.org iburst)'
+    regexp: '^(pool \d+.centos.pool.ntp.org iburst)'
     replace: '# \1'
 
 - name: add jst servers
@@ -34,39 +34,31 @@
 
 # add repository
 - name: add epel repository
-  yum: name={{ item }}
-  with_items:
-    - epel-release
+  dnf:
+    name: epel-release
+    state: latest
 
 # disable epel for defoult repository
 - name: disable epel for default
-  replace: dest=/etc/yum.repos.d/{{item}} regexp="enabled *= *1" replace="enabled=0"
-  with_items:
-    - epel.repo
-
+  replace: 
+    dest: /etc/yum.repos.d/epel.repo
+    regexp: "enabled *= *1" 
+    replace: "enabled=0"
 
 - name: install remi repo.
-  yum:
+  dnf:
     name: "http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
     state: present
 
-- name: Import remi GPG key.
+- name: import remi GPG key.
   rpm_key:
     key: http://rpms.remirepo.net/RPM-GPG-KEY-remi
     state: present
 
 # firewalld 
-- name: check firewalld is running
-  command: systemctl is-active firewalld
-  register: firewalld_result
-  changed_when: False
-  ignore_errors: True
-
-- name: firewalld open ports by service
-  firewalld:
-    permanent: true
-    immediate: true
-    state: enabled
-    service: "{{item}}"
-  with_items:
-    - http
+#- name: firewalld open ports by service
+#  firewalld:
+#    permanent: true
+#    immediate: true
+#    state: enabled
+#    service: http

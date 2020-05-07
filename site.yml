@@ -8,6 +8,5 @@
     - role: mariadb
     - role: nginx 
     - role: php-fpm
-      tags: php
     - role: wordpress
     

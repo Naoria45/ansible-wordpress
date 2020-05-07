@@ -1,6 +1,6 @@
 ---
 # Variables listed here are applicable to all host groups
-wp_version: 5.2.2
+wp_version: 5.4
 
 # MySQL settings
 mysqlservice: mysqld
@@ -9,7 +9,7 @@ mysql_port: 3306
 # These are the WordPress database settings
 wp_db_name: wordpress_db
 wp_db_user: wordpress_user
-wp_db_password: secret
+wp_db_password: wordpress_secret
 
 # This is used for the nginx server configuration, but access to the
 # WordPress site is not restricted by a named host.
